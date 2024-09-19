@@ -4,6 +4,8 @@ const { User } = require('../Schemas/User');
 const bcrypt = require('bcrypt');
 
 router.post('/', async (req, res) => {
+    console.log('Login Accessed');
+
     try {
         const data = req.body;
         let user = await User.findOne({ email: data.email });

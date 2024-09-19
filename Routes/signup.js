@@ -5,6 +5,7 @@ const checkValidity = require('../Controllers/signup_Controller.js')
 const createUser = require('../Controllers/createUser_Controller.js')
 
 router.post('/', async (req, res) => {
+    console.log('Signup Accessed');
     const userData = req.body;
     const validity = checkValidity(userData);
 
