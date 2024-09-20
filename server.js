@@ -14,9 +14,8 @@ const ProtectedRoute = require('./Routes/protectedRoute')
 dbConnetion()
 // app.use(cors())
 app.use(
-    "*",
     cors({
-        origin: `https://audire-x.vercel.app/` || true,
+        origin: `https://audire-x.vercel.app`,
         credentials: true,
         allowedHeaders: ["Content-Type", "Authorization"],
     })
