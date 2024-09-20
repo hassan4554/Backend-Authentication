@@ -12,7 +12,15 @@ const Login = require('./Routes/login')
 const ProtectedRoute = require('./Routes/protectedRoute')
 
 dbConnetion()
-app.use(cors())
+// app.use(cors())
+app.use(
+    "*",
+    cors({
+        origin: `https://audire-x.vercel.app/`,
+        credentials: true,
+        allowedHeaders: ["Content-Type", "Authorization"],
+    })
+);
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
