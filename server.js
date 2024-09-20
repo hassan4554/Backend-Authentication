@@ -16,7 +16,7 @@ dbConnetion()
 app.use(
     "*",
     cors({
-        origin: `https://audire-x.vercel.app/`,
+        origin: `https://audire-x.vercel.app/` || true,
         credentials: true,
         allowedHeaders: ["Content-Type", "Authorization"],
     })
