@@ -12,7 +12,7 @@ const Auth = require('./Routes/authRoutes')
 dbConnetion()
 app.use(
     cors({
-        origin: `http://localhost:5174`
+        origin: `https://audire-x.vercel.app`
     })
 );
 app.use(bodyParser.json())
