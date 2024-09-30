@@ -7,6 +7,7 @@ const createUser = require('../Controllers/createUser_Controller.js')
 router.post('/', async (req, res) => {
     console.log('Signup Accessed')
     const userData = req.body
+    delete userData.confirmPassword
     const validity = checkValidity(userData)
 
     if (!validity.check1) {
