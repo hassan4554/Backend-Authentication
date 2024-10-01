@@ -3,34 +3,22 @@ const router = express.Router()
 const User = require('../Schemas/User.js')
 const checkValidity = require('../Controllers/signup_Controller.js')
 const createUser = require('../Controllers/createUser_Controller.js')
+const validationSchema = require('../Schemas/validationSchema.js')
 
 router.post('/', async (req, res) => {
     console.log('Signup Accessed')
     const userData = req.body
-    delete userData.confirmPassword
-    const validity = checkValidity(userData)
 
-    if (!validity.check1) {
-        res.status(400).send({
-            message: null,
-            error: validity.check1,
-            data: null,
-            token: null
-        })
-    } else if (!validity.check2) {
-        res.status(400).send({
-            message: null,
-            error: validity.check2,
-            token: null,
-            data: null
-        })
-    } else {
+    try {
+        const value = await validationSchema.validateAsync(userData, { abortEarly: false })
 
-        let response = await createUser(userData);
+        delete value.confirnPassword
+
+        let response = await createUser(value);
         if (response) {
             const token = response.generateAuthToken()
-            response = response.toObject();
-            delete response.password;
+            response = response.toObject()
+            delete response.password
             res.status(200).send({
                 message: 'User created',
                 error: null,
@@ -45,6 +33,15 @@ router.post('/', async (req, res) => {
                 token: null
             })
         }
+    } catch (error) {
+        const errorMessages = error.details.map(err => err.message);
+        
+        res.status(400).send({
+            message: null,
+            error: errorMessages,
+            data: null,
+            token: null
+        })
     }
 })
 

@@ -14,7 +14,7 @@ app.use(
     cors({
         origin: `https://audire-x.vercel.app`
     })
-);
+)
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
